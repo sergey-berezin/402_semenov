@@ -5,8 +5,6 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emotions", "Emotions\Emotions.csproj", "{FB1E6213-AF26-4B30-BC48-75E3F99C224D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{BE617F98-ACD3-4231-8C16-3DED06BFCEDC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{FB1E6213-AF26-4B30-BC48-75E3F99C224D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB1E6213-AF26-4B30-BC48-75E3F99C224D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB1E6213-AF26-4B30-BC48-75E3F99C224D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE617F98-ACD3-4231-8C16-3DED06BFCEDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE617F98-ACD3-4231-8C16-3DED06BFCEDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE617F98-ACD3-4231-8C16-3DED06BFCEDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE617F98-ACD3-4231-8C16-3DED06BFCEDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
