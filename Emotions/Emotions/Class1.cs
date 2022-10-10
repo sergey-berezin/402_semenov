@@ -27,6 +27,7 @@ namespace Emotions
             return new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor("Input3", input) };
         }
         
+
         public async Task<List<Tuple<string, float>>> Emotions
                (DenseTensor<float> pic, CancellationToken token)
         {
