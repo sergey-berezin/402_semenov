@@ -26,11 +26,11 @@ namespace Emotions
         {
             return new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor("Input3", input) };
         }
-
-        public async Task<string[]> Emotions
+        
+        public async Task<List<Tuple<string, float>>> Emotions
                (DenseTensor<float> pic, CancellationToken token)
         {
-            return await Task<string[]>.Factory.StartNew(() =>
+            return await Task<List<Tuple<string, float>>>.Factory.StartNew(() =>
             {
                 var inputs = Tensor(pic);
                 IDisposableReadOnlyCollection<DisposableNamedOnnxValue> res;
@@ -44,9 +44,12 @@ namespace Emotions
                             v.Name == "Plus692_Output_0").AsEnumerable<float>().ToArray());
 
                 string[] keys = { "neutral", "happiness", "surprise", "sadness", "anger", "disgust", "fear", "contempt" };
+                List<Tuple<string, float>> r = new();
                 for (int i = 0; i < keys.Count(); i++)
-                    keys[i] += $": {(result[i] * 100):f4}%";
-                return keys;
+                {
+                    r.Add((keys[i], result[i]).ToTuple());
+                }
+                    return r;
             }, token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
 

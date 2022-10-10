@@ -27,7 +27,7 @@ public class ConsoleApp1
 
         return t;
     }
-    public static int Main(string[] args)
+    public async static Task Main(string[] args)
     {
         using Image<Rgb24> img = Image.Load<Rgb24>("..//..//..//..//face1.jpg");
         img.Mutate(ctx => {
@@ -35,8 +35,8 @@ public class ConsoleApp1
         });
         var inputs = GrayscaleImageToTensor(img);
         var a = new Emotions.EmotionsAsync();
-        foreach (string i in a.Emotions(inputs, CancellationToken.None).Result)
-            Console.WriteLine(i);
-        return 0;
+        var res = await a.Emotions(inputs, CancellationToken.None);
+        foreach(var i in res)
+            Console.WriteLine($"{i.Item1}: {(i.Item2 * 100):f4}%");
     }
 }
