@@ -10,6 +10,16 @@ namespace Emotions_2
 {
     public class Picture : INotifyPropertyChanged
     {
+        private int number;
+        public int Number
+        {
+            get => number;
+            set
+            {
+                number = value;
+                OnPropertyChanged("Number");
+            }
+        }
         private string name;
         public string Name
         {

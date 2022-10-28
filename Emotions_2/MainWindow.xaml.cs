@@ -6,15 +6,13 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System.Threading;
 using System;
+using System.Windows.Controls;
+using System.Collections.ObjectModel;
 
 namespace Emotions_2
 {
     public partial class MainWindow : Window
     {
-
-        
-        
-
         public MyDataClass MyData { get; set; }
         CancellationTokenSource cancelTokenSource;
         CancellationToken token;
@@ -38,6 +36,7 @@ namespace Emotions_2
                 foreach (var t in System.IO.Directory.GetFiles(dialog.SelectedPath))
                     path.Add(t);
                 int MaxValue = path.Count();
+                int count = 0;
                 foreach(var f in path)
                 {
                     using Image<Rgb24> img = SixLabors.ImageSharp.Image.Load<Rgb24>(f);
@@ -50,6 +49,7 @@ namespace Emotions_2
                     List<Tuple<string, float>> r = new();
                     try
                     {
+                        Interlocked.Increment(ref count);
                         token = cancelTokenSource.Token;
                         var res = await a.Emotions(inputs, token);
                         r = res.OrderByDescending(t => t.Item2).ToList();
@@ -60,10 +60,28 @@ namespace Emotions_2
                     MyData.MyPicture.Add(new Picture
                     {
                         Name = f,
-                        Emotions = r
+                        Emotions = r,
+                        Number = count
                     });
                 };
             }
+        }
+        private void ComboBox_Selected(object sender, RoutedEventArgs e)
+        {
+            string emot = MyData.EmotList.SelectedEmot.f;
+            List<Tuple<string, Tuple<string, float>>> L = new();
+            int num = 1;
+
+            foreach (var pic in MyData.MyPicture)   
+            {
+                L.Add((pic.Name, pic.Emotions.Where(t => t.Item1 == emot).ToList()[0]).ToTuple());
+            }
+            foreach (var t in L.OrderByDescending(t => t.Item2.Item2))
+                MyData.MyPicture.Where(p => p.Name == t.Item1).ToList()[0].Number = num++;
+            var s = MyData.MyPicture.OrderBy(t => t.Number).ToList();
+            MyData.MyPicture.Clear();
+            foreach (var pic in s)
+                MyData.MyPicture.Add(pic);
         }
         public void Button_Clear(object sender, RoutedEventArgs e)
         {
@@ -76,11 +94,6 @@ namespace Emotions_2
         private void Button_Cancel(object sender, RoutedEventArgs e)
         {
             cancelTokenSource.Cancel();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(MyData.Progress.ToString());
         }
     }
 }

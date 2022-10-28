@@ -16,9 +16,9 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Select Folder" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Click="Create_Collection" Grid.Column="1" Grid.Row="1"/>
-        <Button Content="Clear Collection" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Center" Click="Button_Clear" Grid.Column="1" Grid.Row="1"/>
-        <Button Content="Cancel Calculations" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Center" Click="Button_Cancel" Grid.Column="1" Grid.Row="1"/>
+        <Button Content="Select Folder" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Click="Create_Collection" Grid.Column="1" Grid.Row="1"/>
+        <Button Content="Clear Collection" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" Click="Button_Clear" Grid.Column="1" Grid.Row="1"/>
+        <Button Content="Cancel Calculations" HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top" Click="Button_Cancel" Grid.Column="1" Grid.Row="1"/>
         <ProgressBar Minimum="0" Maximum="100" Name="pbStatus" Value="{Binding MyData.Progress}" Grid.Column="0" Grid.Row="2"/>
         <TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0.0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
         <ListBox ItemsSource="{Binding MyData.MyPicture}"  Grid.Column="0" Grid.Row="1">
@@ -32,6 +32,13 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding MyData.FolderName}"/>
-        <Button Grid.Column="1" HorizontalAlignment="Left" Margin="135,70,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Button_Click"/>
+        <ComboBox  Grid.Column="1" HorizontalAlignment="Center" Margin="0,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" ItemsSource="{Binding MyData.EmotList.Emotion}" 
+                SelectedItem="{Binding MyData.EmotList.SelectedEmot}" SelectionChanged="ComboBox_Selected">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding f}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </Grid>
 </Window>

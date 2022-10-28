@@ -41,6 +41,16 @@ namespace Emotions_2
                 OnPropertyChanged("FolderName");
             }
         }
+        private EmotList emotion = new();
+        public EmotList EmotList
+        {
+            get => emotion;
+            set
+            {
+                emotion = value;
+                OnPropertyChanged("EmotList");
+            }
+        }
         public ObservableCollection<Picture> MyPicture { get; set; } = new ObservableCollection<Picture>();
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
