@@ -16,23 +16,25 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Select Folder" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Click="Create_Collection" Grid.Column="1" Grid.Row="1"/>
-        <Button Content="Clear Collection" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" Click="Button_Clear" Grid.Column="1" Grid.Row="1"/>
+        <Button Name="Folder_Button"  Content="Select Folder" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Click="Create_Collection" Grid.Column="1" Grid.Row="1"/>
+        <Button Name="Clear_Button"  Content="Clear Collection" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" Click="Button_Clear" Grid.Column="1" Grid.Row="1"/>
         <Button Content="Cancel Calculations" HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top" Click="Button_Cancel" Grid.Column="1" Grid.Row="1"/>
         <ProgressBar Minimum="0" Maximum="100" Name="pbStatus" Value="{Binding MyData.Progress}" Grid.Column="0" Grid.Row="2"/>
         <TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0.0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
         <ListBox ItemsSource="{Binding MyData.MyPicture}"  Grid.Column="0" Grid.Row="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>
+                            <Image Source="{Binding Name}" Width="150" Height="150"/>
+                        </Label>
                         <ListBox ItemsSource="{Binding Emotions}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding MyData.FolderName}"/>
-        <ComboBox  Grid.Column="1" HorizontalAlignment="Center" Margin="0,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" ItemsSource="{Binding MyData.EmotList.Emotion}" 
+        <ComboBox Name="Emot_Combobox" Grid.Column="1" HorizontalAlignment="Center" Margin="0,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" ItemsSource="{Binding MyData.EmotList.Emotion}" 
                 SelectedItem="{Binding MyData.EmotList.SelectedEmot}" SelectionChanged="ComboBox_Selected">
             <ComboBox.ItemTemplate>
                 <DataTemplate>

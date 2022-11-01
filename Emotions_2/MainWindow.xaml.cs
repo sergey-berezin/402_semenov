@@ -37,7 +37,10 @@ namespace Emotions_2
                     path.Add(t);
                 int MaxValue = path.Count();
                 int count = 0;
-                foreach(var f in path)
+                Emot_Combobox.IsEnabled = false;
+                Folder_Button.IsEnabled = false;
+                Clear_Button.IsEnabled = false;
+                foreach (var f in path)
                 {
                     using Image<Rgb24> img = SixLabors.ImageSharp.Image.Load<Rgb24>(f);
                     img.Mutate(ctx =>
@@ -64,6 +67,9 @@ namespace Emotions_2
                         Number = count
                     });
                 };
+                Emot_Combobox.IsEnabled = true;
+                Folder_Button.IsEnabled = true;
+                Clear_Button.IsEnabled = true;
             }
         }
         private void ComboBox_Selected(object sender, RoutedEventArgs e)
