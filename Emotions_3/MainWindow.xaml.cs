@@ -96,7 +96,7 @@ namespace Emotions_2
                 {
                     string hash = DBpic.GetHash(System.IO.File.ReadAllBytes(f));
                     var q = db.Pic.Where(x => x.Hash == hash);
-                    if (q.Any())
+                    if ((q.Any()) && GITT.FileCompare(f, q.First().Name))
                     {
                         MyData.Progress += 100.0 / MaxValue;
                         count++;
@@ -119,12 +119,12 @@ namespace Emotions_2
                         List<Tuple<string, float>> r = new();
                         try
                         {
-                            Interlocked.Increment(ref count);
+                            count++;
                             token = cancelTokenSource.Token;
                             var res = await a.Emotions(inputs, token);
                             r = res.OrderByDescending(t => t.Item2).ToList();
                         }
-                        catch (Exception ex) { MessageBox.Show("Calculation Canceled"); break; }
+                        catch (OperationCanceledException ex) { MessageBox.Show("Calculation Canceled"); break; }
                         MyData.Progress += 100.0 / MaxValue;
                         MyData.MyPicture.Add(new Picture
                         {
