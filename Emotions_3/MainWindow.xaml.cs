@@ -95,15 +95,15 @@ namespace Emotions_2
                 using (var db = new DB())
                 {
                     string hash = DBpic.GetHash(System.IO.File.ReadAllBytes(f));
-                    var q = db.Pic.Where(x => x.Hash == hash);
-                    if ((q.Any()) && GITT.FileCompare(f, q.First().Name))
+                    var q = db.Pic.Where(x => x.Hash == hash).FirstOrDefault();
+                    if ((q is not null) && GITT.FileCompare(f, q.Name))
                     {
                         MyData.Progress += 100.0 / MaxValue;
                         count++;
                         MyData.MyPicture.Add(new Picture
                         {
                             Name = f,
-                            Emotions = GITT.StringToTuple(q.First().Emotions),
+                            Emotions = GITT.StringToTuple(q.Emotions),
                             Number = count
                         });
                     }
