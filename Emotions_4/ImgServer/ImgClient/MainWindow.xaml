@@ -1,0 +1,51 @@
+﻿<Window x:Class="ImgClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImgClient"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel  Grid.Column="1" Grid.Row="1" Width="150" Height="120" VerticalAlignment="Top" Margin="0,50,0,0">
+            <Button Name="Folder_Button"  Content="Select Folder" Click="Create_Collection"/>
+            <Button Name="Calc" Content="Start Calculation" Click="Start_Calculation"/>
+            <Button Name="Clear_Button"  Content="Clear Collection" Click="Button_Clear"/>
+            <Button Content="Cancel Calculations" Click="Button_Cancel"/>
+            <Button Content="Open Database" Click="Open_Database"/>
+            <ComboBox Name="Emot_Combobox" ItemsSource="{Binding MyData.EmotList.Emotion}" 
+                SelectedItem="{Binding MyData.EmotList.SelectedEmot}" SelectionChanged="ComboBox_Selected">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding f}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <ProgressBar Minimum="0" Maximum="100" Name="pbStatus" Value="{Binding MyData.Progress}" Grid.Column="0" Grid.Row="2"/>
+        <TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0.0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
+        <ListBox ItemsSource="{Binding MyData.MyPicture}"  Grid.Column="0" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>
+                            <Image Source="{Binding Name}" Width="150" Height="150"/>
+                        </Label>
+                        <ListBox ItemsSource="{Binding Emotions}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding MyData.FolderName}"/>
+
+    </Grid>
+</Window>
