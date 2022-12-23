@@ -1,0 +1,28 @@
+﻿<Window x:Class="ImgClient.Database"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImgClient"
+        mc:Ignorable="d"
+        Title="Database" Height="450" Width="800">
+    <Grid>
+        <ListBox Name="ImagesCollectionListBox" ItemsSource="{Binding Collection}" Margin="5,5,5,5" Grid.Row="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>
+                            <Image Source="{Binding Name}" Width="150" Height="150"/>
+                        </Label>
+                        <Label Content="{Binding Emotions}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Drop" Command="{Binding DataContext.DeleteCommand}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+    </Grid>
+</Window>
